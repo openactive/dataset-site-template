@@ -16,3 +16,6 @@ Steps to render the template:
 1. Stringify the input JSON, and place the contents of the string within the "json" property at the root of the JSON itself.
 2. Use the resulting JSON with the mustache template to render the dataset site.
 
+## Example
+
+<script async src="//jsfiddle.net/nickevansuk/msby0vqg/12/embed/js,result/"></script>
