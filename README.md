@@ -22,4 +22,4 @@ Steps to render the template:
 [This repository](https://github.com/openactive/dataset-site-template-example-dotnet) contains a full example written in C#.
 
 ### JavaScript
-[This sample](https://jsfiddle.net/nickevansuk/msby0vqg/12/) contains a full example written in JavaScript.
+[This sample](https://jsfiddle.net/nickevansuk/msby0vqg/) contains a full example written in JavaScript.
