@@ -961,10 +961,9 @@
 
                 <h2 property="dct:title">{{name}}</h2>
 
-                <p class="description">Near real-time availability and rich descriptions of the sessions and facilities available from {{publisher.name}}, published using <a href='https://www.openactive.io/'>OpenActive</a> <a href='https://www.openactive.io/realtime-paged-data-exchange/1.0/'>RPDE 1.0</a> and <a href='{{schemaVersion}}'>Model 2.0</a>.</p>
+                <p class="description" property="dct:description">{{description}}, published using <a href='https://www.openactive.io/'>OpenActive</a> <a href='https://www.openactive.io/realtime-paged-data-exchange/1.0/'>RPDE 1.0</a> and <a href='{{schemaVersion}}'>Model 2.0</a>.</p>
 
                 <p class="metadata" property="dct:created" content='{{datePublished}}' datatype='xsd:dateTime'></p>
-                <p class="metadata" property="dct:description">{{description}}</p>
                 {{#keywords}}
                 <p class="metadata" property="dcat:keyword">{{.}}</p>
                 {{/keywords}}
@@ -972,7 +971,7 @@
                 <ul class="icons">
                     <li><a href="{{documentation}}" class="fa-info">Documentation</a><br /><span>Documentation</span></li>
                     <li><a href="{{discussionUrl}}" class="fa-comments">Discussion</a><br /><span>Discussion</span></li>
-                </ul>
+                </ul> 
             </header>
 
             <ul class="download">
