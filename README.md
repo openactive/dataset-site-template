@@ -17,7 +17,7 @@ Steps to render the template:
 ## Examples
 
 ### C# .NET
-[This library](https://github.com/openactive/OpenActive.DatasetSite.NET/) contains helpers that handles the above automatically.
+[This library](https://github.com/openactive/OpenActive.DatasetSite.NET/) contains helpers that handle the above automatically.
 [This repository](https://github.com/openactive/dataset-site-template-example-dotnet) contains example rendering logic example written in C#.
 
 ### JavaScript
