@@ -1,8 +1,11 @@
 {
-  "@context": "http://schema.org",
+  "@context": [
+    "https://schema.org/",
+    "https://openactive.io/"
+  ],
   "@type": "Dataset",
-  "@id": "https://fusionopendata.fusion-lifestyle.com/OpenActive/",
-  "url": "https://fusionopendata.fusion-lifestyle.com/OpenActive/",
+  "@id": "https://opendata.fusion-lifestyle.com/OpenActive/",
+  "url": "https://opendata.fusion-lifestyle.com/OpenActive/",
   "name": "Fusion Lifestyle Sessions and Facilities",
   "description": "Near real-time availability and rich descriptions relating to the sessions and facilities available from Fusion Lifestyle, published using the OpenActive Modelling Specification 2.0, and covering a rolling lookhead window of the next 14 days.",
   "keywords": [
@@ -16,41 +19,43 @@
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "distribution": [
     {
-      "name": "SessionSeries",
-      "additionalType": "https://openactive.io/SessionSeries",
-      "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
-      "contentUrl": "https://opendata.leisurecloud.live/api/feeds/fusion-lifestyle-live-session-series",
-      "@context": "http://schema.org",
-      "@type": "DataDownload"
-    },
-    {
+      "@type": "DataDownload",
       "name": "ScheduledSession",
       "additionalType": "https://openactive.io/ScheduledSession",
+      "contentUrl": "https://www.example.com/feeds/scheduled-sessions",
       "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
-      "contentUrl": "https://opendata.leisurecloud.live/api/feeds/fusion-lifestyle-live-scheduled-sessions",
-      "@context": "http://schema.org",
-      "@type": "DataDownload"
+      "identifier": "ScheduledSession"
     },
     {
+      "@type": "DataDownload",
+      "name": "SessionSeries",
+      "additionalType": "https://openactive.io/SessionSeries",
+      "contentUrl": "https://www.example.com/feeds/session-series",
+      "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
+      "identifier": "SessionSeries"
+    },
+    {
+      "@type": "DataDownload",
       "name": "FacilityUse",
       "additionalType": "https://openactive.io/FacilityUse",
+      "contentUrl": "https://www.example.com/feeds/facility-uses",
       "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
-      "contentUrl": "https://opendata.leisurecloud.live/api/feeds/fusion-lifestyle-live-facility-uses",
-      "@context": "http://schema.org",
-      "@type": "DataDownload"
+      "identifier": "FacilityUse"
     },
     {
-      "name": "Slot",
+      "@type": "DataDownload",
+      "name": "Slot for FacilityUse",
       "additionalType": "https://openactive.io/Slot",
+      "contentUrl": "https://www.example.com/feeds/facility-use-slots",
       "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
-      "contentUrl": "https://opendata.leisurecloud.live/api/feeds/fusion-lifestyle-live-slots",
-      "@context": "http://schema.org",
-      "@type": "DataDownload"
+      "identifier": "FacilityUseSlot"
     }
   ],
-  "discussionUrl": "https://github.com/fusion-lifestyle/opendata/issues",
-  "documentation": "https://docs.leisurecloud.live/",
-  "inLanguage": "en-GB",
+  "discussionUrl": "https://github.com/gladstonemrm/FusionLifestyle/issues",
+  "documentation": "https://developer.openactive.io/",
+  "inLanguage": [
+    "en-GB"
+  ],
   "publisher": {
     "@type": "Organization",
     "name": "Fusion Lifestyle",
@@ -63,10 +68,17 @@
     },
     "url": "https://www.fusion-lifestyle.com/"
   },
-  "datePublished": "2019-04-25T19:32:14.0367888+00:00",
+  "dateModified": "2020-04-23T09:01:05+01:00",
+  "datePublished": "2019-04-25T19:32:14+00:00",
   "schemaVersion": "https://www.openactive.io/modelling-opportunity-data/2.0/",
-  "softwareVersion": "OWS:2.0.1",
-  "platformUrl": "https://www.gladstonesoftware.co.uk",
-  "platformName": "Gladstone",
-  "backgroundImage": "https://res.cloudinary.com/gladstone/image/upload/fusion-lifestyle-live/jjtttkudkodzfzulijsu"
+  "bookingService": {
+    "@type": "BookingService",
+    "name": "Gladstone",
+    "url": "https://www.gladstonesoftware.co.uk",
+    "softwareVersion": "3.0.2"
+  },
+  "backgroundImage": {
+    "@type": "ImageObject",
+    "url": "https://res.cloudinary.com/gladstone/image/upload/fusion-lifestyle-live/jjtttkudkodzfzulijsu"
+  }
 }
