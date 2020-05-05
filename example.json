@@ -62,7 +62,7 @@
       "@type": "DataDownload",
       "name": "CourseInstance",
       "additionalType": "https://schema.org/CourseInstance",
-      "contentUrl": "https://www.example.com/feeds/course-instances"
+      "contentUrl": "https://www.example.com/feeds/course-instances",
       "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
       "identifier": "CourseInstance"
     }
