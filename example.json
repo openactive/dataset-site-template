@@ -38,7 +38,7 @@
       "@type": "DataDownload",
       "name": "Event",
       "additionalType": "https://schema.org/Event",
-      "contentUrl": "https://www.example.com/feeds/events"
+      "contentUrl": "https://www.example.com/feeds/events",
       "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
       "identifier": "Event"
     },
