@@ -7,7 +7,7 @@
   "@id": "https://opendata.fusion-lifestyle.com/OpenActive/",
   "url": "https://opendata.fusion-lifestyle.com/OpenActive/",
   "name": "Fusion Lifestyle Sessions and Facilities",
-  "description": "Near real-time availability and rich descriptions relating to the sessions and facilities available from Fusion Lifestyle, published using the OpenActive Modelling Specification 2.0, and covering a rolling lookhead window of the next 14 days.",
+  "description": "Near real-time availability and rich descriptions relating to the sessions and facilities available from Fusion Lifestyle",
   "keywords": [
     "Sessions",
     "Facilities",
