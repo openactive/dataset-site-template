@@ -36,6 +36,14 @@
     },
     {
       "@type": "DataDownload",
+      "name": "Event",
+      "additionalType": "https://schema.org/Event",
+      "contentUrl": "https://www.example.com/feeds/events"
+      "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
+      "identifier": "Event"
+    },
+    {
+      "@type": "DataDownload",
       "name": "FacilityUse",
       "additionalType": "https://openactive.io/FacilityUse",
       "contentUrl": "https://www.example.com/feeds/facility-uses",
@@ -49,6 +57,14 @@
       "contentUrl": "https://www.example.com/feeds/facility-use-slots",
       "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
       "identifier": "FacilityUseSlot"
+    },
+    {
+      "@type": "DataDownload",
+      "name": "CourseInstance",
+      "additionalType": "https://schema.org/CourseInstance",
+      "contentUrl": "https://www.example.com/feeds/course-instances"
+      "encodingFormat": "application/vnd.openactive.rpde+json; version=1",
+      "identifier": "CourseInstance"
     }
   ],
   "discussionUrl": "https://github.com/gladstonemrm/FusionLifestyle/issues",
