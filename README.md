@@ -1,13 +1,13 @@
 # dataset-site-template
 
 ## About
-This repository contains a [mustache template](https://www.openactive.io/dataset-site-template/datasetsite.mustache) for creating an OpenActive dataset site, similar to those that can be found at https://status.openactive.io.
+This repository contains a [mustache template](https://openactive.io/dataset-site-template/datasetsite.mustache) for creating an OpenActive dataset site, similar to those that can be found at https://status.openactive.io.
 
 It is designed to be embedded in a booking system, and easily customised.
 
 ## Getting Started
 
-Simply construct the JSON-LD found in [example.json](https://www.openactive.io/dataset-site-template/example.json) based on your organisation (for single database systems) or your customers' own properties (for multiple database systems), then process it with the following steps.
+Simply construct the JSON-LD found in [example.json](https://openactive.io/dataset-site-template/example.json) based on your organisation (for single database systems) or your customers' own properties (for multiple database systems), then process it with the following steps.
 
 Steps to render the template:
 
