@@ -5,6 +5,11 @@ This repository contains a [mustache template](https://openactive.io/dataset-sit
 
 It is designed to be embedded in a booking system, and easily customised.
 
+## Important notes for production use
+
+- DO NOT DOWNLOAD THE MUSTACHE FILE LIVE, IT MUST BE SAVED LOCALLY TO PREVENT XSS ATTACKS
+- DO NOT RENDER THIS FILE CLIENT-SIDE, IT MUST BE RENDERED SERVER-SIDE FOR SEO
+
 ## Getting Started
 
 Simply construct the JSON-LD found in [example.json](https://openactive.io/dataset-site-template/example.json) based on your organisation (for single database systems) or your customers' own properties (for multiple database systems), then process it with the following steps.
