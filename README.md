@@ -5,6 +5,8 @@ This repository contains a [mustache template](https://openactive.io/dataset-sit
 
 It is designed to be embedded in a booking system, and easily customised.
 
+Please see here for full documentation: https://developer.openactive.io/publishing-data/dataset-sites
+
 ## Important notes for production use
 
 - DO NOT DOWNLOAD THE MUSTACHE FILE LIVE, IT MUST BE SAVED LOCALLY TO PREVENT XSS ATTACKS
@@ -16,7 +18,7 @@ Simply construct the JSON-LD found in [example.json](https://openactive.io/datas
 
 Steps to render the template:
 
-1. Stringify the input JSON, and place the contents of the string within the "json" property at the root of the JSON itself.
+1. Stringify the input JSON, and place the contents of the string within the `"json"` property at the root of the JSON itself.
 2. Use the resulting JSON with the mustache template to render the dataset site.
 
 ## Examples
