@@ -20,7 +20,7 @@ Simply construct the JSON-LD found in [example.json](https://openactive.io/datas
 
 Steps to render the template:
 
-1. Stringify the input JSON, and place the contents of the string within the `"json"` property at the root of the JSON itself.
+1. Stringify the input JSON, and place the contents of the string within the `"json"` property at the root of the JSON itself. **This is important as it is used to populate the machine-readable `<script type="application/ld+json">` tag within the generated HTML - view the source of [this page](https://reference-implementation.openactive.io/OpenActive) to see an example.**
 2. Use the resulting JSON with the mustache template to render the dataset site.
 
 ## Examples
