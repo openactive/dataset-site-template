@@ -8,6 +8,20 @@
   "url": "https://opendata.fusion-lifestyle.com/OpenActive/",
   "name": "Fusion Lifestyle Sessions and Facilities",
   "description": "Near real-time availability and rich descriptions relating to the sessions and facilities available from Fusion Lifestyle",
+  "accessService": {
+    "@type": "WebAPI",
+    "name": "Open Booking API",
+    "description": "API that allows for seamless booking experiences to be created for sessions and facilities available from Example",
+    "authenticationAuthority": "https://auth.reference-implementation.openactive.io",
+    "conformsTo": [
+      "https://openactive.io/open-booking-api/EditorsDraft/"
+    ],
+    "documentation": "https://developer.openactive.io/go/open-booking-api",
+    "endpointDescription": "https://www.openactive.io/open-booking-api/EditorsDraft/swagger.json",
+    "endpointURL": "https://reference-implementation.openactive.io/api/openbooking",
+    "landingPage": "https://example.com/api-landing-page",
+    "termsOfService": "https://example.com/api-terms-page"
+  },
   "keywords": [
     "Sessions",
     "Facilities",
