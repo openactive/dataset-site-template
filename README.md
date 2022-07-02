@@ -48,10 +48,6 @@ See [Usage for CLI](#cli-static-file-generator)
 
 There are [various libraries available](https://developer.openactive.io/publishing-data/dataset-sites#.net-php-ruby-and-javascript-typescript-libraries) that handle template rendering in a variety of languages.
 
-For example, for C# .NET:
-- [This library](https://github.com/openactive/OpenActive.DatasetSite.NET/) contains helpers that handle the above automatically.
-- [This repository](https://github.com/openactive/dataset-site-template-example-dotnet) contains example rendering logic example written in C#.
-
 ### Manual template downloads
 
 See [Usage for manual rendering](#manual-rendering)
