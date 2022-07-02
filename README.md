@@ -137,9 +137,9 @@ First construct the JSON-LD found in [example.jsonld](https://openactive.io/data
 3. Use the resulting JSON with the mustache template to render the dataset site.
 
 ### JavaScript prototype
-[This sample](https://jsfiddle.net/nickevansuk/msby0vqg/) contains a prototype of the logic above written in JavaScript.
+**PLEASE NOTE: This is only an example to demonstrate the logic and is not intended for production use**. The mustache template **must** be **copied locally** and **rendered server-side** for production use, for security (to prevent XSS attacks), and as its primary purposes are SEO and machine readability.
 
-PLEASE NOTE: **This is only an example to demonstrate the logic and is not intended for production use**. The mustache template **must** be **copied locally** and **rendered server-side** for production use, for security (to prevent XSS attacks), and as its primary purposes are SEO and machine readability.
+[This sample](https://jsfiddle.net/nickevansuk/msby0vqg/) contains a prototype of the logic above written in JavaScript.
 
 ## Contribution
 
