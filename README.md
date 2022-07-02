@@ -39,7 +39,7 @@ See [Usage for npm](#npm--nodejs)
 
 ### Render via CLI
 ```
-npx @openactive/dataset-site-template example.json output.html
+npx @openactive/dataset-site-template example.jsonld output.html
 ```
 
 See [Usage for CLI](#cli-static-file-generator)
@@ -65,7 +65,7 @@ This function renders the dataset site from a given JSON-LD object, such [exampl
 
 If `stylesheetUrl` is provided it will use the [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files), otherwise it will use the [single-file template](#option-1-embedded-single-file-template).
 
-Note that the JSON-LD should be of the `Dataset` type, which can be validated with the [OpenActive Validator](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite) and also by the [`models-ts`](https://github.com/openactive/models-ts) library.
+Note that the JSON-LD should be of type `Dataset`, which can be validated with the [OpenActive Validator](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite) and also by the [`models-ts`](https://github.com/openactive/models-ts) library.
 
 ```js
 const { renderDatasetSite } = require('@openactive/dataset-site-template');
@@ -94,16 +94,16 @@ Note that the [various libraries available](https://developer.openactive.io/publ
 
 ```
 Usage:
-  npx @openactive/dataset-site <inputJsonFile> <outputHtmlFile> [stylesheetUrl]
+  npx @openactive/dataset-site-template <inputJsonFile> <outputHtmlFile> [stylesheetUrl]
 
 Arguments:
   inputJsonFile: Dataset Site JSON file used to generate the Dataset Site HTML
-  outputHtmlFile: Output Dataset Site HTML file
+  outputHtmlFile: Output Dataset Site HTML file, rendered using the relevant template
   stylesheetUrl: Optional. Path to the datasetsite.styles.css file, if you are hosting static files. 
-     If stylesheetUrl is not supplied, the single-file template is used.
+    If stylesheetUrl is supplied, CSP compatible template is used, otherwise the single-file template is used.
 
 Example:
-  npx @openactive/dataset-site example.jsonld output.html "http://localhost:4000/static/datasetsite.styles.css"
+  npx @openactive/dataset-site-template example.jsonld output.html "http://localhost:4000/static/datasetsite.styles.css"
 ```
 
 ## Manual rendering
