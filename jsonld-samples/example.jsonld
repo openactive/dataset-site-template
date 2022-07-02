@@ -11,14 +11,14 @@
   "accessService": {
     "@type": "WebAPI",
     "name": "Open Booking API",
-    "description": "API that allows for seamless booking experiences to be created for sessions and facilities available from Example",
+    "description": "An API that allows for seamless booking experiences to be created for sessions and facilities available from Fusion Lifestyle",
     "authenticationAuthority": "https://auth.reference-implementation.openactive.io",
     "conformsTo": [
       "https://openactive.io/open-booking-api/EditorsDraft/"
     ],
     "documentation": "https://developer.openactive.io/go/open-booking-api",
     "endpointDescription": "https://www.openactive.io/open-booking-api/EditorsDraft/swagger.json",
-    "endpointURL": "https://reference-implementation.openactive.io/api/openbooking",
+    "endpointUrl": "https://reference-implementation.openactive.io/api/openbooking",
     "landingPage": "https://example.com/api-landing-page",
     "termsOfService": "https://example.com/api-terms-page"
   },
@@ -105,10 +105,11 @@
     "@type": "BookingService",
     "name": "Gladstone",
     "url": "https://www.gladstonesoftware.co.uk",
-    "softwareVersion": "3.0.2"
+    "softwareVersion": "3.0.2",
+    "hasCredential": "https://certificates.reference-implementation.openactive.io/examples/all-features/controlled/"
   },
   "backgroundImage": {
     "@type": "ImageObject",
-    "url": "https://res.cloudinary.com/gladstone/image/upload/fusion-lifestyle-live/jjtttkudkodzfzulijsu"
+    "url": "https://res.cloudinary.com/gladstone/image/upload/fusion-lifestyle-live/jjtttkudkodzfzulijsu?"
   }
 }
