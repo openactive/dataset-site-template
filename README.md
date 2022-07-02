@@ -1,4 +1,4 @@
-# dataset-site-template
+# dataset-site-template [![npm version](https://img.shields.io/npm/v/@openactive/dataset-site-template)](https://www.npmjs.com/package/@openactive/dataset-site-template) [![Build](https://github.com/openactive/dataset-site-template/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/openactive/dataset-site-template/actions/workflows/deploy.yml)
 
 ## About
 This repository contains a mustache template for creating an OpenActive dataset site, similar to those that can be found at https://status.openactive.io.
