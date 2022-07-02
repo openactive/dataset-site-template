@@ -1,0 +1,38 @@
+{
+  "name": "@openactive/dataset-site-template",
+  "version": "1.0.0",
+  "description": "OpenActive dataset site templates and renderer",
+  "homepage": "https://www.openactive.io",
+  "main": "lib/index.js",
+  "bin": "bin/index.js",
+  "files": [
+    "bin",
+    "dist",
+    "lib"
+  ],
+  "engines": {
+    "node": "14.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openactive/dataset-site-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/openactive/dataset-site-template/issues"
+  },
+  "scripts": {
+    "build": "node src/build.js",
+    "start": "node bin/index.js",
+    "watch": "node src/test-harness/test-harness.js",
+    "prepare": "npm run build"
+  },
+  "author": "OpenActive",
+  "license": "MIT",
+  "dependencies": {
+    "mustache": "^4.1.0"
+  },
+  "devDependencies": {
+    "express": "^4.18.1",
+    "folder-zip-sync": "^1.0.5"
+  }
+}
