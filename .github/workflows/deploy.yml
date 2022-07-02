@@ -23,10 +23,10 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - name: Install and Build
-        run: npm ci
       - name: Increment Version
         run: npm version patch
+      - name: Install and Build using incremented version
+        run: npm ci
       - name: Publish to npm
         run: npm publish
         env:
