@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages and NPM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.author.email, 'hello@openactive.io')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+      - name: Identify
+        run: |
+          git config user.name OpenActive Bot
+          git config user.email hello@openactive.io
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+      - name: Install and Build
+        run: npm ci
+      - name: Increment Version
+        run: npm version patch
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Push version update
+        run: git push
+      - name: Copy examples to deployment directory
+        run: cp jsonld-samples/* dist/
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
+          enable_jekyll: true
+
+  dispatch:
+    needs: deploy
+    strategy:
+      matrix:
+        repo: ['OpenActive.DatasetSite.NET', 'dataset-site-template-php', 'dataset-site-template-ruby']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger tooling update
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          repository: openactive/${{ matrix.repo }}
+          event-type: dataset-site-template-update
