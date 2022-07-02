@@ -127,7 +127,7 @@ Downloads for [CSP compatible template](#option-2-csp-compatible-template-with-s
 
 First construct the JSON-LD found in [example.jsonld](https://openactive.io/dataset-site-template/example.jsonld) based on your organisation (for single database systems) or your customers' own properties (for multiple database systems), then process it with the following steps:
 
-1. Stringify the input JSON, and place the contents of the string within the `"jsonld"` property at the root of the JSON itself.
+1. Stringify the input JSON-LD, and place the contents of the string within the `"jsonld"` property at the root of the JSON-LD itself.
    - **This is important as it is used to populate the machine-readable `<script type="application/ld+json">` tag within the generated HTML - view the source of [this page](https://reference-implementation.openactive.io/OpenActive) to see an example.**
 2. If using static hosted files, set the `"stylesheetUrl"` property at the root of the JSON to the relative path of the stylesheet. Note this must take place after Step 1 so that this property is not included in the machine-readable JSON-LD.
 3. Use the resulting JSON with the mustache template to render the dataset site.
