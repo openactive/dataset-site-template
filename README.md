@@ -136,8 +136,10 @@ First construct the JSON-LD found in [example.jsonld](https://openactive.io/data
 2. If using static hosted files, set the `"stylesheetUrl"` property at the root of the JSON to the relative path of the stylesheet. Note this must take place after Step 1 so that this property is not included in the machine-readable JSON-LD.
 3. Use the resulting JSON with the mustache template to render the dataset site.
 
-### JavaScript example
-[This sample](https://jsfiddle.net/nickevansuk/msby0vqg/) contains an example of the logic above written in JavaScript. THIS SAMPLE IS FOR ILLUSTRATION ONLY, DO NOT USE LIVE LINKS OR CLIENT-SIDE RENDERING.
+### JavaScript prototype
+[This sample](https://jsfiddle.net/nickevansuk/msby0vqg/) contains a prototype of the logic above written in JavaScript.
+
+PLEASE NOTE: **This is only an example to demonstrate the logic and is not intended for production use**. The mustache template **must** be **copied locally** and **rendered server-side** for production use, for security (to prevent XSS attacks), and as its primary purposes are SEO and machine readability.
 
 ## Contribution
 
