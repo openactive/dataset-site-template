@@ -50,7 +50,7 @@ See [Usage for Node.js](#npm--nodejs)
 
 ### Render via CLI
 ```bash
-$ npx @openactive/dataset-site-template example.jsonld output.html
+$ npx @openactive/dataset-site-template@latest example.jsonld output.html
 ```
 
 See [Usage for CLI](#cli-static-dataset-site-generator)
@@ -68,9 +68,11 @@ See [Usage for manual rendering](#manual-rendering)
 
 ### `renderDatasetSite(jsonld, staticAssetsPathUrl)`
 
-This function renders the dataset site from a given JSON-LD object, such [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite).
+This function renders the dataset site from a given JSON-LD object, such as [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite).
 
 If `staticAssetsPathUrl` is provided it will use the [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files), otherwise it will use the [single-file template](#option-1-embedded-single-file-template).
+
+`staticAssetsPathUrl` is the relative or absolute URL path to the hosted CSP assets ([contents of datasetsite-csp.static.zip](#unzipassetsarchivetodirectorydestinationrelativedirectorypath)). `staticAssetsPathUrl` is relative to the location of the dataset site endpoint.
 
 Note that the JSON-LD should be of type `Dataset`, which can be validated with the [OpenActive Validator](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite) and also by the [`models-ts`](https://github.com/openactive/models-ts) library.
 
@@ -94,13 +96,13 @@ app.get('openactive', async (req, res) => {
 
 ### `unzipAssetsArchiveToDirectory(destinationRelativeDirectoryPath)`
 
-Extracts the CSP static asset files to the specified directory. Useful for build scripts.
+Extracts the CSP static asset files (contents of datasetsite-csp.static.zip) to the specified directory. Useful for build scripts.
 
 ```js
-const { renderDatasetSite } = require('@openactive/dataset-site-template');
+const { unzipAssetsArchiveToDirectory } = require('@openactive/dataset-site-template');
 
 /* Output OpenActive Dataset Site Template CSP compatible static files */
-await unzipAssetsArchiveToDirectory('/static/datasetsite');
+await unzipAssetsArchiveToDirectory('./assets/static/datasetsite');
 ```
 
 ### `getDatasetSiteTemplate(singleFileMode)`
@@ -114,45 +116,52 @@ If `singleFileMode` is `false` or omitted it will return the content of the [CSP
 
 Use `npx @openactive/dataset-site-template` to generate a Dataset Site HTML file that can be statically hosted. This can be useful for single database systems where the contents of the dataset site will not change per-customer.
 
-You will need to supply a JSON-LD file, such [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite) based on your organisation.
+You will need to supply a JSON-LD file, such as [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite), based on your organisation.
 
 Note that the [various libraries available](https://developer.openactive.io/publishing-data/dataset-sites#.net-php-ruby-and-javascript-typescript-libraries) are preferred to this approach where possible, as they are easier to iterate with during development, and as the Dataset API Discovery specification is [yet to be formally released](https://developer.openactive.io/publishing-data/dataset-sites#what-is-a-dataset-site).
 
 To host a static single-file dataset site, simply run:
 
 ```bash
-$ npx @openactive/dataset-site-template example.jsonld index.html
+$ npx @openactive/dataset-site-template@latest example.jsonld index.html
 ```
 
-To host a static CSP compatible dataset site from a single directory, simply run:
+To host a static CSP compatible dataset site from a single directory, simply run the following in that directory:
 
 ```bash
-$ npx @openactive/dataset-site-template example.jsonld index.html . .
+$ npx @openactive/dataset-site-template@latest example.jsonld index.html . .
+```
+
+Please note if running the above in CI, it is recommended for stability and security that the [version](https://www.npmjs.com/package/@openactive/dataset-site-template) is specified explicitly. For example:
+```bash
+$ npx @openactive/dataset-site-template@1.0.52 example.jsonld index.html . .
 ```
 
 Full usage instructions:
 
 ```
 Usage:
-  npx @openactive/dataset-site-template <inputJsonFile> <outputHtmlFile> [staticAssetsPathUrl] [staticAssetsOutputDirectory]
+  npx @openactive/dataset-site-template@<version> <inputJsonFile> <outputHtmlFile> [staticAssetsPathUrl] [staticAssetsOutputDirectory]
 
   Arguments:
     inputJsonFile: Dataset Site JSON file used to generate the Dataset Site HTML
     outputHtmlFile: Output Dataset Site HTML file, rendered using the relevant template
-    staticAssetsPathUrl: Optional. URL path to the contents of datasetsite-csp.static.zip, if you are hosting static files. 
+    staticAssetsPathUrl: Optional.
+      Relative or absolute URL path to the hosted CSP assets (contents of datasetsite-csp.static.zip), if you are hosting static files.
       If staticAssetsPathUrl is supplied, CSP compatible template is used, otherwise the single-file template is used.
-    staticAssetsOutputDirectory: If supplied, output the CSP asset archive contents to this directory.
+      staticAssetsPathUrl is relative to the hosted location of the outputHtmlFile.
+    staticAssetsOutputDirectory: If supplied, output the CSP assets (contents of datasetsite-csp.static.zip) to this directory.
 
-  npx @openactive/dataset-site-template --raw <outputDirectory>
+  npx @openactive/dataset-site-template@<version> --raw <outputDirectory>
 
   Arguments:
     outputDirectory: Output both raw mustache template files and the CSP assets archive to this directory
 
 Examples:
-  npx @openactive/dataset-site-template example.jsonld index.html
-  npx @openactive/dataset-site-template example.jsonld index.html . .
-  npx @openactive/dataset-site-template example.jsonld output.html "http://localhost:4000/static" ./static
-  npx @openactive/dataset-site-template --raw ./templates
+  npx @openactive/dataset-site-template@latest example.jsonld index.html
+  npx @openactive/dataset-site-template@latest example.jsonld index.html . .
+  npx @openactive/dataset-site-template@latest example.jsonld output.html "http://example.com/static" ./static
+  npx @openactive/dataset-site-template@latest --raw ./templates
 ```
 
 ## Manual rendering
