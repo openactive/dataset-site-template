@@ -30,38 +30,10 @@ This template must be rendered using a reference to a statically hosted styleshe
 
 ## Options for template rendering
 
-### Render with npm
+### Render in Node.js
+```bash
+$ npm install @openactive/dataset-site-template
 ```
-npm install @openactive/dataset-site-template
-```
-
-See [Usage for npm](#npm--nodejs)
-
-### Render via CLI
-```
-npx @openactive/dataset-site-template example.jsonld output.html
-```
-
-See [Usage for CLI](#cli-static-file-generator)
-
-### Other languages
-
-There are [various libraries available](https://developer.openactive.io/publishing-data/dataset-sites#.net-php-ruby-and-javascript-typescript-libraries) that handle template rendering in a variety of languages.
-
-### Manual template downloads
-
-See [Usage for manual rendering](#manual-rendering)
-
-
-## NPM / Node.JS
-
-### `renderDatasetSite(jsonld, staticAssetsPathUrl)`
-
-This function renders the dataset site from a given JSON-LD object, such [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite).
-
-If `staticAssetsPathUrl` is provided it will use the [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files), otherwise it will use the [single-file template](#option-1-embedded-single-file-template).
-
-Note that the JSON-LD should be of type `Dataset`, which can be validated with the [OpenActive Validator](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite) and also by the [`models-ts`](https://github.com/openactive/models-ts) library.
 
 ```js
 const { renderDatasetSite } = require('@openactive/dataset-site-template');
@@ -74,34 +46,113 @@ app.get('openactive', async (req, res) => {
 });
 ```
 
+See [Usage for Node.js](#npm--nodejs)
+
+### Render via CLI
+```bash
+$ npx @openactive/dataset-site-template example.jsonld output.html
+```
+
+See [Usage for CLI](#cli-static-dataset-site-generator)
+
+### Other languages
+
+There are [various libraries available](https://developer.openactive.io/publishing-data/dataset-sites#.net-php-ruby-and-javascript-typescript-libraries) that handle template rendering in a variety of languages.
+
+### Manual template downloads
+
+See [Usage for manual rendering](#manual-rendering)
+
+
+## npm / Node.js
+
+### `renderDatasetSite(jsonld, staticAssetsPathUrl)`
+
+This function renders the dataset site from a given JSON-LD object, such [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite).
+
+If `staticAssetsPathUrl` is provided it will use the [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files), otherwise it will use the [single-file template](#option-1-embedded-single-file-template).
+
+Note that the JSON-LD should be of type `Dataset`, which can be validated with the [OpenActive Validator](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite) and also by the [`models-ts`](https://github.com/openactive/models-ts) library.
+
+```js
+const { renderDatasetSite } = require('@openactive/dataset-site-template');
+
+/* Render OpenActive Dataset Site via a single file */
+app.get('openactive', async (req, res) => {
+   /** @type {import('@openactive/models-ts').Dataset} */
+   const jsonld = {...};
+   return await renderDatasetSite(jsonld);
+});
+
+/* Render OpenActive Dataset Site that is CSP compatible */
+app.get('openactive', async (req, res) => {
+   /** @type {import('@openactive/models-ts').Dataset} */
+   const jsonld = {...};
+   return await renderDatasetSite(jsonld, '/static/datasetsite');
+});
+```
+
+### `unzipAssetsArchiveToDirectory(destinationRelativeDirectoryPath)`
+
+Extracts the CSP static asset files to the specified directory. Useful for build scripts.
+
+```js
+const { renderDatasetSite } = require('@openactive/dataset-site-template');
+
+/* Output OpenActive Dataset Site Template CSP compatible static files */
+await unzipAssetsArchiveToDirectory('/static/datasetsite');
+```
+
 ### `getDatasetSiteTemplate(singleFileMode)`
 
-This function returns a string containing the appropriate template file.
+This function returns a string containing the content of the appropriate template file (depending on `singleFileMode`).
 
-If `singleFileMode` is `false` or omitted it will use the [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files)), otherwise it will use the [single-file template](#option-1-embedded-single-file-template).
+If `singleFileMode` is `false` or omitted it will return the content of the [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files)), otherwise it will return the content of the [single-file template](#option-1-embedded-single-file-template).
 
 
-## CLI static file generator
+## CLI static dataset site generator
+
 Use `npx @openactive/dataset-site-template` to generate a Dataset Site HTML file that can be statically hosted. This can be useful for single database systems where the contents of the dataset site will not change per-customer.
 
 You will need to supply a JSON-LD file, such [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite) based on your organisation.
 
 Note that the [various libraries available](https://developer.openactive.io/publishing-data/dataset-sites#.net-php-ruby-and-javascript-typescript-libraries) are preferred to this approach where possible, as they are easier to iterate with during development, and as the Dataset API Discovery specification is [yet to be formally released](https://developer.openactive.io/publishing-data/dataset-sites#what-is-a-dataset-site).
 
+To host a static single-file dataset site, simply run:
+
+```bash
+$ npx @openactive/dataset-site-template example.jsonld index.html
+```
+
+To host a static CSP compatible dataset site from a single directory, simply run:
+
+```bash
+$ npx @openactive/dataset-site-template example.jsonld index.html . .
+```
+
+Full usage instructions:
+
 ```
 Usage:
-  npx @openactive/dataset-site-template <inputJsonFile> <outputHtmlFile> [staticAssetsPathUrl]
+  npx @openactive/dataset-site-template <inputJsonFile> <outputHtmlFile> [staticAssetsPathUrl] [staticAssetsOutputDirectory]
 
-Arguments:
-  inputJsonFile: Dataset Site JSON file used to generate the Dataset Site HTML
-  outputHtmlFile: Output Dataset Site HTML file, rendered using the relevant template
-  staticAssetsPathUrl: Optional. URL path to the directory containing the contents of
-    datasetsite-csp.static.zip, without a trailing slash (/), if you are hosting static files. 
-    If staticAssetsPathUrl is supplied, CSP compatible template is used,
-    otherwise the single-file template is used.
+  Arguments:
+    inputJsonFile: Dataset Site JSON file used to generate the Dataset Site HTML
+    outputHtmlFile: Output Dataset Site HTML file, rendered using the relevant template
+    staticAssetsPathUrl: Optional. URL path to the contents of datasetsite-csp.static.zip, if you are hosting static files. 
+      If staticAssetsPathUrl is supplied, CSP compatible template is used, otherwise the single-file template is used.
+    staticAssetsOutputDirectory: If supplied, output the CSP asset archive contents to this directory.
 
-Example:
-  npx @openactive/dataset-site-template example.jsonld output.html "http://localhost:4000/static/datasetsite.styles.css"
+  npx @openactive/dataset-site-template --raw <outputDirectory>
+
+  Arguments:
+    outputDirectory: Output both raw mustache template files and the CSP assets archive to this directory
+
+Examples:
+  npx @openactive/dataset-site-template example.jsonld index.html
+  npx @openactive/dataset-site-template example.jsonld index.html . .
+  npx @openactive/dataset-site-template example.jsonld output.html "http://localhost:4000/static" ./static
+  npx @openactive/dataset-site-template --raw ./templates
 ```
 
 ## Manual rendering

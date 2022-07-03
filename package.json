@@ -29,6 +29,7 @@
   "author": "OpenActive",
   "license": "MIT",
   "dependencies": {
+    "extract-zip": "^2.0.1",
     "mustache": "^4.1.0"
   },
   "devDependencies": {
