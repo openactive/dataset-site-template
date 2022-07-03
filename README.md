@@ -59,9 +59,7 @@ See [Usage for CLI](#cli-static-dataset-site-generator)
 
 There are [various libraries available](https://developer.openactive.io/publishing-data/dataset-sites#.net-php-ruby-and-javascript-typescript-libraries) that handle template rendering in a variety of languages.
 
-### Manual template downloads
-
-See [Usage for manual rendering](#manual-rendering)
+If a library is not available in your language, consider [manual rendering](#manual-rendering).
 
 
 ## npm / Node.js
@@ -107,7 +105,7 @@ await unzipAssetsArchiveToDirectory('./assets/static/datasetsite');
 
 ### `getDatasetSiteTemplate(singleFileMode)`
 
-This function returns a string containing the content of the appropriate template file (depending on `singleFileMode`).
+This function returns a string containing the raw content of the template file (depending on `singleFileMode`).
 
 If `singleFileMode` is `false` or omitted it will return the content of the [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files)), otherwise it will return the content of the [single-file template](#option-1-embedded-single-file-template).
 
@@ -115,6 +113,8 @@ If `singleFileMode` is `false` or omitted it will return the content of the [CSP
 ## CLI static dataset site generator
 
 Use `npx @openactive/dataset-site-template` to generate a Dataset Site HTML file that can be statically hosted. This can be useful for single database systems where the contents of the dataset site will not change per-customer.
+
+[Node.js](https://nodejs.org/en/download/) version 14 or above must be installed to use this command.
 
 You will need to supply a JSON-LD file, such as [example.jsonld](https://validator.openactive.io/?url=https%3A%2F%2Fopenactive.io%2Fdataset-site-template%2Fexample.jsonld&version=2.x&validationMode=DatasetSite), based on your organisation.
 
@@ -148,9 +148,9 @@ Usage:
     outputHtmlFile: Output Dataset Site HTML file, rendered using the relevant template
     staticAssetsPathUrl: Optional.
       Relative or absolute URL path to the hosted CSP assets (contents of datasetsite-csp.static.zip), if you are hosting static files.
-      If staticAssetsPathUrl is supplied, CSP compatible template is used, otherwise the single-file template is used.
+      If staticAssetsPathUrl is supplied, the CSP compatible template is used, otherwise the single-file template is used.
       staticAssetsPathUrl is relative to the hosted location of the outputHtmlFile.
-    staticAssetsOutputDirectory: If supplied, output the CSP assets (contents of datasetsite-csp.static.zip) to this directory.
+    staticAssetsOutputDirectory: Optional. If supplied, output the CSP assets (contents of datasetsite-csp.static.zip) to this directory.
 
   npx @openactive/dataset-site-template@<version> --raw <outputDirectory>
 
@@ -182,7 +182,7 @@ Downloads for [Single-file template](#option-1-embedded-single-file-template):
 Downloads for [CSP compatible template](#option-2-csp-compatible-template-with-separate-static-files):
 
   - [⬇️  Download CSP compatible template](https://openactive.io/dataset-site-template/datasetsite-csp.mustache)
-  - [⬇️  Download static files](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip)
+  - [⬇️  Download CSP compatible static asset files](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip)
 
 
 ### Steps to render
@@ -191,7 +191,7 @@ First construct the JSON-LD found in [example.jsonld](https://openactive.io/data
 
 1. Stringify the input JSON-LD, and place the contents of the string within the `"jsonld"` property at the root of the JSON-LD itself.
    - **This is important as it is used to populate the machine-readable `<script type="application/ld+json">` tag within the generated HTML - view the source of [this page](https://reference-implementation.openactive.io/OpenActive) to see an example.**
-2. If using static hosted files, set the `"staticAssetsPathUrl"` property at the root of the JSON to the URL path of the directory containing the contents of [`datasetsite-csp.static.zip`](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip), without a trailing slash (/). Note this must take place after Step 1 so that this property is not included in the machine-readable JSON-LD.
+2. If using static hosted files, set the `"staticAssetsPathUrl"` property at the root of the JSON to the URL path of the directory containing the CSP static asset files (contents of [`datasetsite-csp.static.zip`](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip)), without a trailing slash (/). Note this must take place after Step 1 so that this property is not included in the machine-readable JSON-LD.
 3. Use the resulting JSON with the mustache template to render the dataset site.
 
 ### JavaScript prototype

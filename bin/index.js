@@ -16,9 +16,9 @@ Usage:
     outputHtmlFile: Output Dataset Site HTML file, rendered using the relevant template
     staticAssetsPathUrl: Optional.
       Relative or absolute URL path to the hosted CSP assets (contents of datasetsite-csp.static.zip), if you are hosting static files.
-      If staticAssetsPathUrl is supplied, CSP compatible template is used, otherwise the single-file template is used.
+      If staticAssetsPathUrl is supplied, the CSP compatible template is used, otherwise the single-file template is used.
       staticAssetsPathUrl is relative to the hosted location of the outputHtmlFile.
-    staticAssetsOutputDirectory: If supplied, output the CSP assets (contents of datasetsite-csp.static.zip) to this directory.
+    staticAssetsOutputDirectory: Optional. If supplied, output the CSP assets (contents of datasetsite-csp.static.zip) to this directory.
 
   npx @openactive/dataset-site-template@<version> --raw <outputDirectory>
 
