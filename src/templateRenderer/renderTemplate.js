@@ -27,15 +27,12 @@ function replaceReferencesWithEmbedsAndRemoveFonts(css) {
   });
 }
 
-function replaceStylesPlaceholderWithContent(input, content) {
-  return input.replace(/<!-- STYLES PLACEHOLDER -->/, (match, $1) => {
+function replacePlaceholdersWithContent(input, versionContent, stylesContent, warningContent) {
+  return input.replace(/<!-- (VERSION|STYLES|STYLES WARNING) PLACEHOLDER -->/g, (match, $1) => {
+    if ($1 === 'VERSION') return versionContent;
+    if ($1 === 'STYLES') return stylesContent;
+    if ($1 === 'STYLES WARNING') return warningContent;
     return content;
-  });
-}
-
-function appendAfterDoctype(input, content) {
-  return input.replace(/<!DOCTYPE HTML>/, (match, $1) => {
-    return `<!DOCTYPE HTML>\n\n${content}\n`;
   });
 }
 
@@ -47,7 +44,11 @@ function getStylesSourceFileName() {
   return `datasetsite.styles.css`;
 }
 
-function renderTemplate(datasetSiteIdentifier, embed, stylesDestinationFileNameOverride) {
+function getDatasetSiteTemplateFilename(singleFileMode) {
+  return  `datasetsite${singleFileMode ? '' : '-csp'}.mustache`;
+}
+
+function renderTemplate(datasetSiteIdentifier, singleFileMode, stylesDestinationFileNameOverride) {
   // Get template of the template
   let templateOfTemplate;
   try {
@@ -60,8 +61,17 @@ function renderTemplate(datasetSiteIdentifier, embed, stylesDestinationFileNameO
 
   const stylesFile = stylesDestinationFileNameOverride || getStylesDestinationFileName();
 
+  // Render version comment
+  const versionHtml = `<!--
+  OpenActive Dataset Site Template version ${process.env.npm_package_version}, from https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/${getDatasetSiteTemplateFilename(singleFileMode)}${!singleFileMode ? `
+  
+  This HTML file must reference a self-hosted '${stylesFile}' file, co-located with the rest
+  of the static assets from the following archive:
+  https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip` : ''}
+-->`;
+
   // Render styles depending on whether or not embedding is enabled
-  const stylesHtml = embed ?
+  const stylesHtml = singleFileMode ?
     `
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" crossorigin="anonymous">
     <style>${replaceReferencesWithEmbedsAndRemoveFonts(fs.readFileSync(`./src/static/${datasetSiteIdentifier}.styles.css`, { encoding:'utf8' }))}</style>` :
@@ -73,19 +83,27 @@ function renderTemplate(datasetSiteIdentifier, embed, stylesDestinationFileNameO
     -->
     <link rel="stylesheet" href="{{{staticAssetsPathUrl}}}/${stylesFile}" crossorigin="anonymous">\n`;
 
-  templateOfTemplate = appendAfterDoctype(templateOfTemplate, `<!--
-  OpenActive Dataset Site Template version ${process.env.npm_package_version}, from https://github.com/openactive/dataset-site-template/tags/v${process.env.npm_package_version}${!embed ? `
+  // Render warning for developers who have not hosted the static assets correctly
+  const stylesWarningHtml = singleFileMode ? '' : `
+    <table class="always-hidden" bgcolor="#FFFFFF" width="100%" height="500px"><tr><td align="center">
+      <p></p>
+      <p><large><strong>Error: Static Assets Not Found</strong><large></p>
+      <p>This HTML page must reference self-hosted static assets located at the relative or absolute path configured by "staticAssetsPathUrl" in the mustache template source data.</p>
+      <p>"staticAssetsPathUrl" is currently set to "{{staticAssetsPathUrl}}", and this page has failed to access this file: <pre>{{staticAssetsPathUrl}}/${stylesFile}</pre></p>
+      <p>Please ensure that the assets at this location exactly match those in
+      <a href="https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip">datasetsite-csp.static.zip version ${process.env.npm_package_version}</a>.</p>
+      <p></p>
+      <p>See the <a href="https://github.com/openactive/dataset-site-template">"CSP compatible template" documentation</a> for more information</p>
+      <p></p>
+    </td></tr></table>
+  `;
   
-  This HTML file must reference a self-hosted '${stylesFile}' file, co-located with the rest
-  of the static assets from the following archive:
-  https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip` : ''}
--->`);
-  
-  return replaceStylesPlaceholderWithContent(templateOfTemplate, stylesHtml);
+  return replacePlaceholdersWithContent(templateOfTemplate, versionHtml, stylesHtml, stylesWarningHtml);
 }
 
 module.exports = {
   renderTemplate,
   getStylesDestinationFileName,
-  getStylesSourceFileName
+  getStylesSourceFileName,
+  getDatasetSiteTemplateFilename
 };

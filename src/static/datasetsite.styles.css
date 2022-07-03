@@ -1141,7 +1141,7 @@ body {
 
         }
 
-.metadata {
+.metadata, .always-hidden {
     display: none;
 }
 
