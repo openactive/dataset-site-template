@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const MIMETYPES = {
   'woff': 'application/font-woff',
@@ -27,29 +28,64 @@ function replaceReferencesWithEmbedsAndRemoveFonts(css) {
 }
 
 function replaceStylesPlaceholderWithContent(input, content) {
-  return input.replace(/<!-- STYLES PLACEHOLDER -->/g, (match, $1) => {
+  return input.replace(/<!-- STYLES PLACEHOLDER -->/, (match, $1) => {
     return content;
   });
 }
 
-function renderTemplate(datasetSiteIdentifier, embed) {
+function appendAfterDoctype(input, content) {
+  return input.replace(/<!DOCTYPE HTML>/, (match, $1) => {
+    return `<!DOCTYPE HTML>\n\n${content}\n`;
+  });
+}
+
+function getStylesDestinationFileName() {
+  return `datasetsite.styles.v${process.env.npm_package_version}.css`;
+}
+
+function getStylesSourceFileName() {
+  return `datasetsite.styles.css`;
+}
+
+function renderTemplate(datasetSiteIdentifier, embed, stylesDestinationFileNameOverride) {
   // Get template of the template
   let templateOfTemplate;
   try {
-    templateOfTemplate = fs.readFileSync(`./src/templates/${datasetSiteIdentifier}.mustache.template`, { encoding:'utf8' });
+    templateOfTemplate = fs.readFileSync(path.join(__dirname, `../templates/${datasetSiteIdentifier}.mustache.template`), { encoding:'utf8' });
   } catch {
-    templateOfTemplate = fs.readFileSync(`./src/templates/archive/${datasetSiteIdentifier}.mustache`, { encoding:'utf8' });
+    console.log(`Not found: 'templates/${datasetSiteIdentifier}.mustache.template'`)
+    console.log(`Falling back to: 'templates/archive/${datasetSiteIdentifier}.mustache'`)
+    templateOfTemplate = fs.readFileSync(path.join(__dirname,`../templates/archive/${datasetSiteIdentifier}.mustache`), { encoding:'utf8' });
   }
+
+  const stylesFile = stylesDestinationFileNameOverride || getStylesDestinationFileName();
 
   // Render styles depending on whether or not embedding is enabled
   const stylesHtml = embed ?
-    `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" crossorigin="anonymous">
+    `
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" crossorigin="anonymous">
     <style>${replaceReferencesWithEmbedsAndRemoveFonts(fs.readFileSync(`./src/static/${datasetSiteIdentifier}.styles.css`, { encoding:'utf8' }))}</style>` :
-    '<link rel="stylesheet" href="{{{stylesheetUrl}}}" crossorigin="anonymous">';
+    `
+    <!--
+      This stylesheet href must reference a self-hosted '${stylesFile}' file in
+      the same directory as the other static assets sourced from the following archive:
+      https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip
+    -->
+    <link rel="stylesheet" href="{{{staticAssetsPathUrl}}}/${stylesFile}" crossorigin="anonymous">\n`;
+
+  templateOfTemplate = appendAfterDoctype(templateOfTemplate, `<!--
+  OpenActive Dataset Site Template version ${process.env.npm_package_version}, from https://github.com/openactive/dataset-site-template/tags/v${process.env.npm_package_version}${!embed ? `
+  
+  This HTML file must reference a self-hosted '${stylesFile}' file, co-located with the rest
+  of the static assets from the following archive:
+  https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip` : ''}
+-->`);
   
   return replaceStylesPlaceholderWithContent(templateOfTemplate, stylesHtml);
 }
 
 module.exports = {
   renderTemplate,
+  getStylesDestinationFileName,
+  getStylesSourceFileName
 };

@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
 app.use(express.static(path.join(__dirname + '/../')));
 
 app.get('/:datasetSiteIdentifier/:exampleIdentifier/:embed', (req, res) => {
-  const { exampleIdentifier, datasetSiteIdentifier, embed } = req.params;
+  const { datasetSiteIdentifier, exampleIdentifier, embed } = req.params;
     
   if (!datasetSiteIdentifier) {
     res.status(404).json({
@@ -44,12 +44,12 @@ app.get('/:datasetSiteIdentifier/:exampleIdentifier/:embed', (req, res) => {
   const isEmbeddingEnabled = embed === 'embed';
 
   if (!isEmbeddingEnabled) {
-    // Create a `stylesheetUrl` property containing the path to the stylesheet so that Mustache can read it
-    data.stylesheetUrl = `/static/${datasetSiteIdentifier}.styles.css`;
+    // Create a `staticAssetsPathUrl` property containing the path to the stylesheet so that Mustache can read it
+    data.staticAssetsPathUrl = `/static`;
   }
 
   // Render the template live (note this is the same as build.js)
-  var template = renderTemplate(datasetSiteIdentifier, isEmbeddingEnabled);
+  var template = renderTemplate(datasetSiteIdentifier, isEmbeddingEnabled, `${datasetSiteIdentifier}.styles.css`);
 
   // Use the resulting JSON with the mustache template to render the dataset site.
   var html = Mustache.render(template, data);

@@ -33,6 +33,6 @@
   },
   "devDependencies": {
     "express": "^4.18.1",
-    "folder-zip-sync": "^1.0.5"
+    "jszip": "^3.10.0"
   }
 }

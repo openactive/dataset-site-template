@@ -34,12 +34,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- STYLES PLACEHOLDER -->
-
     <!-- JSON-LD conforming to Google Structured Data specification. -->
     <script type="application/ld+json">
 {{{jsonld}}}
     </script>
+    <!-- STYLES PLACEHOLDER -->
 </head>
 <body id="booking" background="{{backgroundImage.url}}">
     <div class="outerscene">
