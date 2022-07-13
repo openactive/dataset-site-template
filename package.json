@@ -1,6 +1,6 @@
 {
   "name": "@openactive/dataset-site-template",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "OpenActive dataset site templates and renderer",
   "homepage": "https://www.openactive.io",
   "main": "lib/index.js",
