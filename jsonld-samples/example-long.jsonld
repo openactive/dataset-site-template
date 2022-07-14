@@ -16,7 +16,7 @@
     "conformsTo": [
       "https://openactive.io/open-booking-api/EditorsDraft/"
     ],
-    "documentation": "https://developer.openactive.io/go/open-booking-api",
+    "documentation": "https://permalink.openactive.io/dataset-site/open-booking-api-documentation",
     "endpointDescription": "https://www.openactive.io/open-booking-api/EditorsDraft/swagger.json",
     "endpointUrl": "https://reference-implementation.openactive.io/api/openbooking",
     "landingPage": "https://example.com/api-landing-page"
@@ -81,7 +81,7 @@
     }
   ],
   "discussionUrl": "https://github.com/gladstonemrm/FusionLifestyle/issues",
-  "documentation": "https://developer.openactive.io/",
+  "documentation": "https://permalink.openactive.io/dataset-site/open-data-documentation",
   "inLanguage": [
     "en-GB"
   ],
