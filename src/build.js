@@ -29,7 +29,7 @@ const addFilesFromDirectoryToZip = (directoryPath, zip, fileRenameMap) => {
 
     if (fs.statSync(filepath).isFile()) {
       const mappedFilename = fileRenameMap[name] || name;
-      zip.file(mappedFilename, fs.readFileSync(filepath, "utf-8"));
+      zip.file(mappedFilename, fs.readFileSync(filepath));
     }
   });
 };
