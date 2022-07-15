@@ -134,7 +134,7 @@ $ npx @openactive/dataset-site-template@latest example.jsonld index.html . .
 
 Please note if running the above in CI, it is recommended for stability and security that the [version](https://www.npmjs.com/package/@openactive/dataset-site-template) is specified explicitly. For example:
 ```bash
-$ npx @openactive/dataset-site-template@1.0.52 example.jsonld index.html . .
+$ npx @openactive/dataset-site-template@15.0.0 example.jsonld index.html . .
 ```
 
 Full usage instructions:
