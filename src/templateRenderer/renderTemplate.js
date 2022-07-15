@@ -6,6 +6,8 @@ const MIMETYPES = {
   'png': 'image/png' 
 }
 
+const npmPackageMajorVersion = process.env.npm_package_version.substring(0, process.env.npm_package_version.indexOf("."));
+
 function encodeDataUri(buffer, extension) {
   const mimetype = MIMETYPES[extension];
   return `url(data:${mimetype};base64,${buffer.toString('base64')})`;
@@ -37,7 +39,7 @@ function replacePlaceholdersWithContent(input, versionContent, stylesContent, wa
 }
 
 function getStylesDestinationFileName() {
-  return `datasetsite.styles.v${process.env.npm_package_version}.css`;
+  return `datasetsite.styles.v${npmPackageMajorVersion}.css`;
 }
 
 function getStylesSourceFileName() {
@@ -63,11 +65,11 @@ function renderTemplate(datasetSiteIdentifier, singleFileMode, stylesDestination
 
   // Render version comment
   const versionHtml = `<!--
-  OpenActive Dataset Site Template version ${process.env.npm_package_version}, from https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/${getDatasetSiteTemplateFilename(singleFileMode)}${!singleFileMode ? `
+  OpenActive Dataset Site Template version ${npmPackageMajorVersion}, from https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/${getDatasetSiteTemplateFilename(singleFileMode)}${!singleFileMode ? `
   
   This HTML file must reference a self-hosted '${stylesFile}' file, co-located with the rest
   of the static assets from the following archive:
-  https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip` : ''}
+  https://unpkg.com/@openactive/dataset-site-template@${npmPackageMajorVersion}.0.0/dist/datasetsite-csp.static.zip` : ''}
 -->`;
 
   // Render styles depending on whether or not embedding is enabled
@@ -79,7 +81,7 @@ function renderTemplate(datasetSiteIdentifier, singleFileMode, stylesDestination
     <!--
       This stylesheet href must reference a self-hosted '${stylesFile}' file in
       the same directory as the other static assets sourced from the following archive:
-      https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip
+      https://unpkg.com/@openactive/dataset-site-template@${npmPackageMajorVersion}.0.0/dist/datasetsite-csp.static.zip
     -->
     <link rel="stylesheet" href="{{{staticAssetsPathUrl}}}/${stylesFile}" crossorigin="anonymous">\n`;
 
@@ -91,7 +93,7 @@ function renderTemplate(datasetSiteIdentifier, singleFileMode, stylesDestination
       <p>This HTML page must reference self-hosted static assets located at the relative or absolute path configured by "staticAssetsPathUrl" in the mustache template source data.</p>
       <p>"staticAssetsPathUrl" is currently set to "{{staticAssetsPathUrl}}", and this page has failed to access this file: <pre>{{staticAssetsPathUrl}}/${stylesFile}</pre></p>
       <p>Please ensure that the assets at this location exactly match those in
-      <a href="https://unpkg.com/@openactive/dataset-site-template@${process.env.npm_package_version}/dist/datasetsite-csp.static.zip">datasetsite-csp.static.zip version ${process.env.npm_package_version}</a>.</p>
+      <a href="https://unpkg.com/@openactive/dataset-site-template@${npmPackageMajorVersion}.0.0/dist/datasetsite-csp.static.zip">datasetsite-csp.static.zip version ${npmPackageMajorVersion}</a>.</p>
       <p></p>
       <p>See the <a href="https://github.com/openactive/dataset-site-template">"CSP compatible template" documentation</a> for more information</p>
       <p></p>
