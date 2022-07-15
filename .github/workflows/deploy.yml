@@ -23,7 +23,8 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - name: Increment Version (CSP asset alignment makes every change a breaking change)
+      - name: Increment Version (for security - and CSP asset alignment - every change to the template files is a breaking change)
+        # TODO: Make this conditional on if template files have actually changed
         run: npm version major
       - name: Install and Build using incremented version
         run: npm ci
