@@ -23,7 +23,7 @@ This file contains stylesheets and images embedded in a single file, with fonts 
 ### Option 2: CSP compatible template with separate self-hosted static assets
 This template must be rendered using a reference to a self-hosted stylesheet and assets. This is useful for implementations that have a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) in place.
 
-1. Host the [CSP compatible template static files](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip) somewhere on the same domain as your dataset site.
+1. Host the [CSP compatible template static assets](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip) somewhere on the same domain as your dataset site.
 2. Use one of the options below to dynamically render the 'CSP compatible template' ensuring that the "`staticAssetsPathUrl`" references the URL path to the directory containing the contents of [`datasetsite-csp.static.zip`](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip) (this can be a relative or absolute URL). 
 3. Output the template at an endpoint, for example `https://example.com/openactive/`. 
 
@@ -99,7 +99,7 @@ Extracts the CSP static asset files (contents of datasetsite-csp.static.zip) to 
 ```js
 const { unzipAssetsArchiveToDirectory } = require('@openactive/dataset-site-template');
 
-/* Output OpenActive Dataset Site Template CSP compatible static files */
+/* Output OpenActive Dataset Site Template CSP compatible static assets */
 await unzipAssetsArchiveToDirectory('./assets/static/datasetsite');
 ```
 
@@ -147,7 +147,7 @@ Usage:
     inputJsonFile: Dataset Site JSON file used to generate the Dataset Site HTML
     outputHtmlFile: Output Dataset Site HTML file, rendered using the relevant template
     staticAssetsPathUrl: Optional.
-      Relative or absolute URL path to the hosted CSP assets (contents of datasetsite-csp.static.zip), if you are hosting static files.
+      Relative or absolute URL path to the hosted CSP assets (contents of datasetsite-csp.static.zip), if you are hosting static assets.
       If staticAssetsPathUrl is supplied, the CSP compatible template is used, otherwise the single-file template is used.
       staticAssetsPathUrl is relative to the hosted location of the outputHtmlFile.
     staticAssetsOutputDirectory: Optional. If supplied, output the CSP assets (contents of datasetsite-csp.static.zip) to this directory.
