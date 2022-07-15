@@ -208,3 +208,11 @@ The `datasetsite.mustache.template` and `datasetsite.styles.css` files are used 
 When making changes, to preview the template files simply run `npm install` and then `npm run build`. This script is also run by CI on `master`, and the resulting templates automatically deployed to GitHub Pages and NPM.
 
 When developing the templates `npm run watch` can be used to run a live test harness to preview changes in real-time.
+
+### Releasing
+
+All changes that impact the output dataset site templates or static assets MUST trigger a major version bump (both for security, and for the static asset version matching mechanism). The CI of downstream libraries will then automatically pick up these changes.
+
+Minor and patch version numbers may be used to update any functionality of the npm library that impacts direct users of that library, but does not impact the templates or static assets themselves.
+
+*NOTE*: All commits to master currently trigger a major version bump in CI by default.
