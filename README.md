@@ -16,12 +16,12 @@ Please see here for full documentation: https://developer.openactive.io/publishi
 There are two templates available, depending on your use case.
 
 ### Option 1: Embedded single-file template
-This file contains stylesheets and images embedded in a single file, referencing Cloudflare and Google CDNs for fonts. It is useful for implementations where hosting static files is problematic.
+This file contains stylesheets and images embedded in a single file, with fonts loaded via the CDNs of [Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro) and [cdnjs (powered by Cloudflare)](https://cdnjs.com/libraries/font-awesome/4.7.0).
 
 1. Use one of the options below to dynamically render the embedded 'single-file template' and output it at an endpoint, for example `https://example.com/openactive/`.
 
-### Option 2: CSP compatible template with separate static files
-This template must be rendered using a reference to a statically hosted stylesheet. This is useful for implementations that have a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) in place.
+### Option 2: CSP compatible template with separate self-hosted static assets
+This template must be rendered using a reference to a self-hosted stylesheet and assets. This is useful for implementations that have a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) in place.
 
 1. Host the [CSP compatible template static files](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip) somewhere on the same domain as your dataset site.
 2. Use one of the options below to dynamically render the 'CSP compatible template' ensuring that the "`staticAssetsPathUrl`" references the URL path to the directory containing the contents of [`datasetsite-csp.static.zip`](https://openactive.io/dataset-site-template/datasetsite-csp.static.zip) (this can be a relative or absolute URL). 
