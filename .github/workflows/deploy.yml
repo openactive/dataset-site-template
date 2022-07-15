@@ -23,8 +23,8 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - name: Increment Version
-        run: npm version patch
+      - name: Increment Version (CSP asset alignment makes every change a breaking change)
+        run: npm version major
       - name: Install and Build using incremented version
         run: npm ci
       - name: Publish to npm
