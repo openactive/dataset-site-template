@@ -69,9 +69,6 @@
   "schemaVersion": "https://openactive.io/modelling-opportunity-data/2.0/",
   "bookingService": {
     "@type": "BookingService",
-    "name": "Gladstone",
-    "url": "https://www.gladstonesoftware.co.uk",
-    "softwareVersion": "3.0.2",
     "hasCredential": "https://certificates.reference-implementation.openactive.io/examples/all-features/controlled/"
   },
   "backgroundImage": {

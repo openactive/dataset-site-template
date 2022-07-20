@@ -171,7 +171,7 @@
             <!-- Footer -->
             <footer id="footer">
                 <ul class="copyright">
-                    <li>{{#bookingService}}Platform: <a href="{{url}}">{{name}} {{softwareVersion}}</a>. {{/bookingService}}Design: <a href="http://html5up.net">HTML5 UP</a>.</li>
+                    <li>{{#bookingService.name}}Platform: {{/bookingService.name}}{{#bookingService.url}}<a href="{{.}}">{{/bookingService.url}}{{bookingService.name}}{{#bookingService.softwareVersion}} {{.}}{{/bookingService.softwareVersion}}{{#bookingService.url}}</a>{{/bookingService.url}}{{#bookingService.name}}. {{/bookingService.name}}Design: <a href="http://html5up.net">HTML5 UP</a>.</li>
                 </ul>
             </footer>
         </div>
