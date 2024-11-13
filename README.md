@@ -215,4 +215,4 @@ All changes that impact the output dataset site templates or static assets MUST 
 
 Minor and patch version numbers may be used to update any functionality of the npm library that impacts direct users of that library, but does not impact the templates or static assets themselves.
 
-*NOTE*: All commits to master currently trigger a major version bump in CI by default.
+*NOTE*: Only commits to master src/static/ and src/templates/ currently trigger a major version bump in CI by default.
