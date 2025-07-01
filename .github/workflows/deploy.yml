@@ -10,14 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.author.email, 'hello@openactive.io')"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
         with:
-          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Identify
         run: |
-          git config user.name OpenActive Bot
-          git config user.email hello@openactive.io
+          git config --global user.name "openactive[bot]"
+          git config --global user.email 207210293+openactive[bot]@users.noreply.github.com
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
@@ -39,7 +45,7 @@ jobs:
       - name: Publish to npm
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Push version update
         run: git push
       - name: Copy examples to deployment directory
@@ -59,9 +65,15 @@ jobs:
         repo: ['OpenActive.DatasetSite.NET', 'dataset-site-template-php', 'dataset-site-template-ruby']
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
       - name: Trigger tooling update
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           repository: openactive/${{ matrix.repo }}
           event-type: dataset-site-template-update
