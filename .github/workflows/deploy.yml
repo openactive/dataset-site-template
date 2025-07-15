@@ -29,8 +29,16 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            src_static:
+              - 'src/static/**'
+            src_templates:
+              - 'src/templates/**'
       - name: Increment Version (for security - and CSP asset alignment - every change to the template files is a breaking change)
-        # TODO: Make this conditional on if template files have actually changed
+        if: steps.filter.outputs.src_static == 'true' || steps.filter.outputs.src_templates == 'true'
         run: npm version major
       - name: Install and Build using incremented version
         run: npm ci
